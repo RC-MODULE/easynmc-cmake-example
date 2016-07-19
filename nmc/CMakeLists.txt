@@ -3,22 +3,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-# this one is important
-SET(CMAKE_C_COMPILER_ID NMCC)
-SET(CMAKE_SYSTEM_NAME Generic)
-SET(CMAKE_SYSTEM_PROCESSOR NMC)
-SET(CMAKE_C_COMPILER     nmcpp)
-SET(CMAKE_CXX_COMPILER   nmcpp)
-
-
-#this one not so much
-SET(CMAKE_SYSTEM_VERSION 1)
+include(NeuromatrixToolchain)
+NMC_TARGET(soc)
 
 PROJECT(easynmc-example-project C)
 SET(PROJECT_VERSION   0.1)
-
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
 
 SET(SRCS main.c)
 
@@ -27,4 +16,5 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_EXECUTABLE(easynmc-example ${SRCS})
-TARGET_LINK_LIBRARIES(easynmc-example ${EASYNMC_LIBRARIES})
+
+#TARGET_LINK_LIBRARIES(easynmc-example  )
