@@ -37,23 +37,23 @@ int main(int argc, char **argv)
 	if (ret != 0) {
 		fprintf(stderr, "Failed to reset polling counter (\n");
 		exit(1);
-	}
-	;
-
+	};
 
 	ret = easynmc_start_app(h, entrypoint);
 	if (ret != 0) {
 		fprintf(stderr, "Failed to start app (\n");
 		exit(1);
 	}
-	printf("NMC application started\n");
+	printf("NMC application started, waiting up to 5 seconds\n");
+	int timeout = 5;
 	do {
 		state = easynmc_core_state(h);
 		printf("Current NMC core state: %d\n", state);
 		if (state == EASYNMC_CORE_IDLE)
 			break;
 		sleep(1);
-	} while (1);
-	printf("App exited, bailing out\n");
+	} while (timeout--);
 
+	printf("App exited, bailing out\n");
+	exit (timeout == 0);
 }
