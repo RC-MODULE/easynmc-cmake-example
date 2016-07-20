@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 
 #Add our all-in-one cross-compile helper
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/cmake)
-include(cross-compile)
+include(LinuxCrossCompile)
 
 PROJECT(easynmc-example-project)
 SET(PROJECT_VERSION   0.1)
