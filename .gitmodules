@@ -1,3 +1,6 @@
 [submodule "nmc/cmake"]
 	path = nmc/cmake
 	url = https://github.com/RC-MODULE/cmake-nmc.git
+[submodule "linux/cmake"]
+	path = linux/cmake
+	url = https://github.com/RC-MODULE/cmake-nmc.git
