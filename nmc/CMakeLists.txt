@@ -2,7 +2,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-
 include(NeuromatrixToolchain)
 NMC_TARGET(soc)
 
@@ -16,5 +15,3 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_EXECUTABLE(easynmc-example ${SRCS})
-
-#TARGET_LINK_LIBRARIES(easynmc-example  )
