@@ -51,9 +51,23 @@ message(STATUS "Using cross-sysroot ${CMAKE_FIND_ROOT_PATH}")
 SET_DEFAULT_VALUE(LUA_CPATH "lib/lua/5.2/")
 SET_DEFAULT_VALUE(LUA_LPATH "share/lua/5.2/")
 
-#Tell pkg-config where to look for libraries
-SET(ENV{PKG_CONFIG_SYSROOT_DIR} ${CMAKE_FIND_ROOT_PATH})
+#Tell pkg-config where to look for libraries.
+#SYSROOT dir only makes sense and works on linux
+if (UNIX)
+    SET(ENV{PKG_CONFIG_SYSROOT_DIR} ${CMAKE_FIND_ROOT_PATH})
+endif()
+
+#Windows version of pkg-config expect ; as delimeters.
+macro(add_pkg_config_path NEWPATH)
+    if (WIN32)
+        SET(SEPARATOR ";")
+    else()
+        SET(SEPARATOR ":")
+    endif()
+    SET(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}${SEPARATOR}${NEWPATH}")
+endmacro()
+
 SET(ENV{PKG_CONFIG_LIBDIR} ${CMAKE_FIND_ROOT_PATH}/usr/lib/pkgconfig/)
 
-SET(ENV{PKG_CONFIG_PATH} ${CMAKE_FIND_ROOT_PATH}/usr/lib/${CMAKE_LIBRARY_PATH}/pkgconfig/)
-SET(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:${CMAKE_FIND_ROOT_PATH}/usr/share/pkgconfig/")
+add_pkg_config_path(${CMAKE_FIND_ROOT_PATH}/usr/lib/${CMAKE_LIBRARY_PATH}/pkgconfig/)
+add_pkg_config_path("${CMAKE_FIND_ROOT_PATH}/usr/share/pkgconfig/")
